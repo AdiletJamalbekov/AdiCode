@@ -3,10 +3,15 @@ import User from "../user/User";
 import Input from "../input/Input";
 import Buttons from "../../components/buttons/Buttons";
 import Example from "../../components/example/Example";
+import Header from "../../components/header/Header";
 
 const MainPage = () => {
+
+    const navBar = ["Главная", "Контакты", "О нас", 'navBar']
+
     return (
         <React.Fragment>
+            <Header navBar={navBar}/>
             <User name={'Adilet'} age={23}/>
             <Input/>
             <Buttons/>
