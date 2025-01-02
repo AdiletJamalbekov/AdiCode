@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from "../../components/modal/Modal";
 import TodoList from "../../components/todoList/TodoList";
 import Button from "../../components/button/Button";
@@ -24,7 +24,6 @@ const MainPage = () => {
             completed: false
         }
     ])
-    console.log(tasks)
 
 
     const handleShow = () => {
@@ -33,23 +32,38 @@ const MainPage = () => {
 
 
     const [inputTask, setInputTask] = useState('')
-    console.log(inputTask, 'inputTask')
     const onChangeInputTask = (event) => {
         setInputTask(event.target.value)
     }
 
     const handleAdd = () => {
         setTasks(prev => [...prev, {
-            id: tasks[tasks.length - 1].id + 1,
+            id: tasks.length === 0 ? 1 : tasks[tasks.length - 1].id + 1,
             title: inputTask,
             completed: false
         }])
     }
 
     const handleDelete = (id) => {
-        console.log(id)
+        setTasks(tasks.filter(task => task.id !== id))
     }
 
+    const handleDone = (id) => {
+        tasks.map(task => {
+            if (task.id === id) {
+                return task.completed = !task.completed
+            }
+        })
+        setTasks([...tasks])
+    }
+
+    const handleEdit = (editTodo) => {
+
+    }
+
+    useEffect(() => {
+        console.log(useEffect)
+    }, [show]);
 
     return (
         <React.Fragment>
@@ -70,6 +84,8 @@ const MainPage = () => {
             <TodoList
                 tasks={tasks}
                 handleDelete={handleDelete}
+                handleDone={handleDone}
+                handleEdit={handleEdit}
             />
         </React.Fragment>
     );
